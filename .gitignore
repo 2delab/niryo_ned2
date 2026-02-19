@@ -4,3 +4,4 @@ log/
 venv/
 .vscode/
 .ruff_cache/
+_pycache__/

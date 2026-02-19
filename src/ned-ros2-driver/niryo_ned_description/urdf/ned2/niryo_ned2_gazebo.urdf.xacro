@@ -1,16 +1,62 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="niryo_ned2">
-    <!-- Enable Gazebo control-->
-    <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-        </plugin>
-    </gazebo>
 
     <!-- Import Robot -->
     <xacro:include filename="$(find niryo_ned_description)/urdf/ned2/niryo_ned2_gripper1_n_camera.urdf.xacro"/>
 
     <!-- Import Transmission -->
     <xacro:include filename="$(find niryo_ned_description)/urdf/ned2/niryo_ned2.transmission.xacro"/>
+
+    <!-- ros2_control configuration for Gazebo -->
+    <ros2_control name="GazeboSystem" type="system">
+        <hardware>
+            <plugin>gz_ros2_control/GazeboSimROS2ControlPlugin</plugin>
+        </hardware>
+
+        <!-- Arm joints -->
+        <joint name="joint_1">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        <joint name="joint_2">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        <joint name="joint_3">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        <joint name="joint_4">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        <joint name="joint_5">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        <joint name="joint_6">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <!-- Gripper joints -->
+        <joint name="joint_base_to_mors_1">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        <joint name="joint_base_to_mors_2">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+    </ros2_control>
+
+    <!-- Gazebo physics and contact reporting -->
+    <gazebo>
+        <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control">
+            <ros>
+                <namespace>/</namespace>
+            </ros>
+        </plugin>
+    </gazebo>
 
 </robot>
