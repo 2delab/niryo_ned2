@@ -8,7 +8,7 @@
     </gazebo>
 
     <!-- Import Robot -->
-    <xacro:include filename="$(find niryo_ned_description)/urdf/ned2/niryo_ned2.urdf.xacro"/>
+    <xacro:include filename="$(find niryo_ned_description)/urdf/ned2/niryo_ned2_gripper1_n_camera.urdf.xacro"/>
 
     <!-- Import Transmission -->
     <xacro:include filename="$(find niryo_ned_description)/urdf/ned2/niryo_ned2.transmission.xacro"/>

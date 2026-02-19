@@ -1,6 +1,6 @@
 <launch>
     <let name="urdf_path" 
-         value="$(find-pkg-share niryo_ned_description)/urdf/my_robot.urdf.xacro" />
+         value="$(find-pkg-share niryo_ned_description)/urdf/ned2/niryo_ned2_gazebo.urdf.xacro" />
 
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
@@ -15,6 +15,5 @@
 
     <node pkg="ros_gz_sim" exec="create" args="-topic robot_description" />
 
-    <node pkg="rviz2" exec="rviz2" output="screen" 
-          args="-d $(var rviz_config_path)" />
+    <node pkg="rviz2" exec="rviz2" output="screen" />
 </launch>
