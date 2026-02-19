@@ -31,11 +31,21 @@
         <joint name="joint_5" value="-1.3468"/>
         <joint name="joint_6" value="0"/>
     </group_state>
+
+    <group_state name="home" group="arm">
+        <joint name="joint_1" value="0"/>
+        <joint name="joint_2" value="0.0"/>
+        <joint name="joint_3" value="0.0"/>
+        <joint name="joint_4" value="0"/>
+        <joint name="joint_5" value="0"/>
+        <joint name="joint_6" value="0"/>
+    </group_state>    
+
     <group_state name="open_gripper" group="gripper">
         <joint name="joint_base_to_mors_1" value="0.005"/>
         <joint name="joint_base_to_mors_2" value="0.005"/>
     </group_state>
-    <group_state name="closee_gripper" group="gripper">
+    <group_state name="close_gripper" group="gripper">
         <joint name="joint_base_to_mors_1" value="-0.0025"/>
         <joint name="joint_base_to_mors_2" value="-0.0025"/>
     </group_state>
