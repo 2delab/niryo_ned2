@@ -9,7 +9,7 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 from rclpy import logging
 
-logger = logging.get_logger("ned2_moveit.launch")
+logger = logging.get_logger("ned2_gripper_moveit.launch")
 
 
 def generate_launch_description():
@@ -22,18 +22,28 @@ def generate_launch_description():
     urdf_file = os.path.join(
         get_package_share_directory("niryo_ned_description"),
         "urdf/ned2",
-        "niryo_ned2.urdf.xacro",
+        "niryo_ned2_gripper1_n_camera.urdf.xacro",
     )
 
     moveit_config = (
-        MoveItConfigsBuilder("niryo_ned2")
+        MoveItConfigsBuilder(
+            "niryo_ned2_gripper1_n_camera",
+            package_name="niryo_ned2_gripper_moveit_config",
+        )
         .robot_description(
             file_path=urdf_file,
         )
         .joint_limits(file_path="config/joint_limits.yaml")
-        .robot_description_semantic(file_path="config/niryo_ned2.srdf")
+        .robot_description_semantic(
+            file_path="config/niryo_ned2_gripper1_n_camera.srdf"
+        )
         .robot_description_kinematics(file_path="config/kinematics.yaml")
-        .trajectory_execution(file_path="config/moveit_controllers.yaml")
+        .trajectory_execution(
+            file_path=os.path.join(
+                get_package_share_directory("niryo_ned2_moveit_config"),
+                "config/moveit_controllers.yaml",
+            )
+        )
         .planning_pipelines(
             pipelines=["ompl", "chomp", "pilz_industrial_motion_planner"]
         )
@@ -50,7 +60,7 @@ def generate_launch_description():
 
     rviz_base = LaunchConfiguration("rviz_config")
     rviz_config = PathJoinSubstitution(
-        [FindPackageShare("niryo_ned2_moveit_config"), "config", rviz_base]
+        [FindPackageShare("niryo_ned2_gripper_moveit_config"), "config", rviz_base]
     )
     rviz_node = Node(
         package="rviz2",

@@ -1,0 +1,377 @@
+================================================================================
+NED ROS2 DRIVER - INTERFACE SUMMARY
+================================================================================
+
+COMPLETE EXTRACTION: All available ROS2 interfaces for NED2/NED3pro robots
+
+Generated: Feb 20, 2025
+Source: ned-ros2-driver repository analysis
+
+================================================================================
+1. TOPICS OVERVIEW
+================================================================================
+
+TOTAL TOPICS: 10+ monitored topics
+
+Core State (4):
+  - /joint_states                                      [sensor_msgs/JointState]
+  - /niryo_robot/robot_state                           [RobotState: Position+RPY+Twist]
+  - /niryo_robot_status/robot_status                   [RobotStatus: Status codes + safety]
+  - /niryo_robot_hardware_interface/hardware_status    [HardwareStatus: Motor temps/voltages]
+
+Transformations (2):
+  - /tf                                                [TF2 dynamic transforms]
+  - /tf_static                                         [TF2 static transforms]
+
+I/O (2):
+  - /niryo_robot_rpi/digital_io_state                 [Digital input/output states]
+  - /niryo_robot_rpi/analog_io_state                  [Analog I/O states]
+
+Tools (2):
+  - /niryo_robot_tools_commander/current_tool         [Active tool info]
+  - /niryo_robot_tools_commander/tool_feedback        [Tool position/state]
+
+Vision & Peripherals (2):
+  - /niryo_robot_vision/camera/compressed             [Camera feed]
+  - /niryo_robot_conveyor/feedback                    [Conveyor speed/state]
+
+================================================================================
+2. ACTIONS OVERVIEW
+================================================================================
+
+TOTAL ACTIONS: 4
+
+HIGH-LEVEL MOVEMENTS (1):
+  Action: /niryo_robot_arm_commander/robot_action
+  Type: RobotMove
+  
+  cmd_type 0  - JOINTS              [Move to joint angles]
+  cmd_type 1  - POSE                [Move to TCP pose (XYZ+RPY)]
+  cmd_type 2  - POSITION            [Move to XYZ only]
+  cmd_type 3  - RPY                 [Rotate orientation only]
+  cmd_type 4  - POSE_QUAT           [Move to pose with quaternion]
+  cmd_type 5  - LINEAR_POSE         [Linear cartesian motion]
+  cmd_type 6  - SHIFT_POSE          [Relative joint movement]
+  cmd_type 7  - SHIFT_LINEAR_POSE   [Linear relative movement]
+  cmd_type 8  - EXECUTE_TRAJ        [Execute waypoint trajectory]
+  cmd_type 9  - DRAW_SPIRAL         [Draw spiral pattern]
+  cmd_type 10 - DRAW_CIRCLE         [Draw circle pattern]
+  cmd_type 11 - EXECUTE_FULL_TRAJ   [Execute full trajectory]
+  cmd_type 12 - EXECUTE_RAW_TRAJ    [Execute raw trajectory]
+
+GRIPPER & TOOLS (1):
+  Action: /niryo_robot_tools_commander/action_server
+  Type: Tool
+  
+  cmd_type 1  - OPEN_GRIPPER        [Open gripper with torque control]
+  cmd_type 2  - CLOSE_GRIPPER       [Close gripper with torque control]
+  cmd_type 10 - PULL_VACUUM         [Activate vacuum pump]
+  cmd_type 11 - PUSH_VACUUM         [Deactivate vacuum pump]
+  cmd_type 20 - SETUP_DIGITAL_IO    [Setup digital I/O tool]
+  cmd_type 21 - ACTIVATE_DIGITAL_IO [Activate digital output]
+  cmd_type 22 - DEACTIVATE_DIGITAL_IO [Deactivate digital output]
+
+LOW-LEVEL TRAJECTORY (1):
+  Action: /niryo_robot_follow_joint_trajectory_controller/follow_joint_trajectory
+  Type: FollowJointTrajectory [control_msgs standard]
+  Use: Multi-point trajectories with precise timing
+
+PROGRAM EXECUTION (1):
+  Action: /niryo_robot_program_executor/execute_program (if available)
+  Type: ExecuteProgram
+  Use: Run stored programs/code on robot
+
+================================================================================
+3. SERVICES OVERVIEW
+================================================================================
+
+TOTAL SERVICES: 40+
+
+KINEMATICS (2):
+  - /niryo_robot/kinematics/forward     [Joint angles → TCP pose]
+  - /niryo_robot/kinematics/inverse     [TCP pose → Joint angles]
+
+POSE MANAGEMENT (3):
+  - /niryo_robot_poses_manager/manage_pose      [Save/Delete poses]
+  - /niryo_robot_poses_manager/get_pose         [Retrieve pose]
+  - /niryo_robot_poses_manager/get_all_poses    [List all poses]
+
+TCP/TOOL SETUP (2):
+  - /niryo_robot_tools_commander/set_tcp        [Define TCP offset]
+  - /niryo_robot_tools_commander/enable_tcp     [Enable/Disable TCP]
+
+DIGITAL I/O (4):
+  - /niryo_robot_rpi/set_digital_io             [Set pin high/low]
+  - /niryo_robot_rpi/get_digital_io             [Read pin state]
+  - /niryo_robot_rpi/set_io_mode                [Set I/O direction]
+  - /niryo_robot_rpi/set_pullup                 [Enable pullup resistor]
+
+ANALOG I/O (2):
+  - /niryo_robot_rpi/set_analog_io              [Set analog value]
+  - /niryo_robot_rpi/get_analog_io              [Read analog value]
+
+MOTOR CONTROL (2):
+  - /niryo_robot/joints_interface/calibrate_motors [Calibrate motors]
+  - /niryo_robot/joints_interface/get_joint_limits [Get joint ranges]
+
+WORKSPACE MANAGEMENT (4):
+  - /niryo_robot_workspace/manage_workspace      [Create/Delete workspaces]
+  - /niryo_robot_workspace/get_workspace_points  [Get corner points]
+  - /niryo_robot_workspace/get_workspace_robot_poses [Get corner poses]
+  - /niryo_robot_workspace/get_workspace_ratio   [Check point in workspace]
+
+TRAJECTORY MANAGEMENT (2):
+  - /niryo_robot_trajectory/manage_trajectory    [Save/Execute trajectories]
+  - /niryo_robot_trajectory/compute_trajectory   [Generate trajectory]
+
+VISION SERVICES (4):
+  - /niryo_robot_vision/object_detection         [Detect objects in image]
+  - /niryo_robot_vision/debug_color_detection    [Debug detection]
+  - /niryo_robot_vision/take_picture             [Capture image]
+  - /niryo_robot_vision/set_image_parameter      [Configure camera]
+
+CONVEYOR CONTROL (2):
+  - /niryo_robot_conveyor/set_conveyor           [Add/Remove conveyor]
+  - /niryo_robot_conveyor/control_conveyor       [Run conveyor]
+
+DYNAMIC FRAMES (2):
+  - /niryo_robot_dynamics/manage_dynamic_frame   [Create/Delete frames]
+  - /niryo_robot_dynamics/get_dynamic_frame      [Get frame definition]
+
+SYSTEM & DIAGNOSTICS (4):
+  - /niryo_robot/hardware_interface/hardware_status [Get hardware status]
+  - /niryo_robot_diagnostics/run_auto_diagnosis  [Run diagnostics]
+  - /niryo_robot/system/get_cpu_temperature      [Get RPi temp]
+  - /niryo_robot/system/ping                     [Check connection]
+
+SETTINGS (8):
+  - /niryo_robot/settings/get_settings           [Get all settings]
+  - /niryo_robot/settings/set_settings           [Apply settings]
+  - /niryo_robot/settings/get_string             [Get string setting]
+  - /niryo_robot/settings/set_string             [Set string setting]
+  - /niryo_robot/settings/get_int                [Get int setting]
+  - /niryo_robot/settings/set_int                [Set int setting]
+  - /niryo_robot/settings/get_float              [Get float setting]
+  - /niryo_robot/settings/set_float              [Set float setting]
+
+================================================================================
+4. MOST COMMONLY USED INTERFACES
+================================================================================
+
+FOR MOVEMENT:
+  1. /niryo_robot_arm_commander/robot_action (cmd_type 0, 1, 5)
+  2. /niryo_robot/kinematics/forward & inverse
+  3. /niryo_robot_follow_joint_trajectory_controller/follow_joint_trajectory
+
+FOR STATUS:
+  1. /niryo_robot/robot_state (topic)
+  2. /niryo_robot_status/robot_status (topic)
+  3. /niryo_robot/system/ping (service)
+  4. /joint_states (topic)
+
+FOR TOOLS/GRIPPERS:
+  1. /niryo_robot_tools_commander/action_server (cmd_type 1, 2)
+  2. /niryo_robot_tools_commander/current_tool (topic)
+
+FOR I/O:
+  1. /niryo_robot_rpi/set_digital_io
+  2. /niryo_robot_rpi/get_digital_io
+
+FOR VISION:
+  1. /niryo_robot_vision/object_detection
+  2. /niryo_robot_vision/camera/compressed (topic)
+
+================================================================================
+5. ROBOT STATUS CODES
+================================================================================
+
+READY STATE:
+  6 - STANDBY (robot powered and ready to move)
+
+MOVING STATE:
+  7 - MOVING (executing motion)
+
+PROGRAM STATES:
+  8 - RUNNING_AUTONOMOUS (user program active)
+  9 - RUNNING_DEBUG (debug program active)
+  10 - PAUSE (program paused)
+
+INITIALIZATION STATES:
+  1 - BOOTING
+  3 - CALIBRATION_NEEDED
+  4 - CALIBRATION_IN_PROGRESS
+
+ERROR STATES (negative values):
+  -1 - USER_PROGRAM_ERROR
+  -2 - COLLISION
+  -3 - MOTOR_ERROR
+  -4 - FATAL_ERROR
+
+SPECIAL STATES:
+  5 - LEARNING_MODE (manual teach mode)
+  11 - LEARNING_MODE_AUTONOMOUS
+  13 - ESTOP (emergency stop)
+
+================================================================================
+6. COMMON COMMUNICATION PATTERNS
+================================================================================
+
+PATTERN 1: MOVE & WAIT
+  Action: /niryo_robot_arm_commander/robot_action
+  Command: cmd_type 0 (JOINTS) or cmd_type 1 (POSE)
+  Result: status (0=success), message
+
+PATTERN 2: CHECK STATUS
+  Topic: /niryo_robot_status/robot_status
+  Check: msg.robot_status == 6 (STANDBY) for ready
+  Service: /niryo_robot/system/ping
+
+PATTERN 3: GRIPPER CONTROL
+  Action: /niryo_robot_tools_commander/action_server
+  Command: cmd_type 2 (CLOSE) or 1 (OPEN)
+  Params: tool_id (11=Gripper1), torque percentages
+
+PATTERN 4: OBJECT DETECTION & MOVE
+  Service: /niryo_robot_vision/object_detection
+  Returns: obj_pose (x, y, z, roll, pitch, yaw)
+  Then: Move to detected position using RobotMove action
+
+PATTERN 5: FORWARD/INVERSE KINEMATICS
+  FK Service: /niryo_robot/kinematics/forward (joints → pose)
+  IK Service: /niryo_robot/kinematics/inverse (pose → joints)
+
+================================================================================
+7. KEY MESSAGE STRUCTURES
+================================================================================
+
+RobotState (position + orientation):
+  - position (x, y, z in meters)
+  - rpy (roll, pitch, yaw in radians)
+  - orientation (quaternion x, y, z, w)
+  - twist (linear + angular velocity)
+  - tcp_speed
+
+RobotStatus (robot state):
+  - robot_status (code: -7 to 13)
+  - robot_status_str (human readable)
+  - robot_message (details)
+  - logs_status (log level)
+  - out_of_bounds (bool)
+  - rpi_overheating (bool)
+
+ArmMoveCommand (for RobotMove action):
+  - cmd_type (0-12, defines movement type)
+  - joints (float array for JOINTS mode)
+  - position (Point: x, y, z)
+  - rpy (Roll, Pitch, Yaw)
+  - orientation (Quaternion)
+  - shift (relative movement)
+
+ToolCommand (for Tool action):
+  - cmd_type (1=OPEN, 2=CLOSE, 10=VACUUM_PULL, 11=VACUUM_PUSH)
+  - tool_id (11=Gripper1, 12=Gripper2, 31=Vacuum)
+  - max_torque_percentage
+  - hold_torque_percentage
+
+================================================================================
+8. UNITS & CONVENTIONS
+================================================================================
+
+POSITION:         Meters (m)
+ROTATION:         Radians (rad), range [-π, π]
+JOINTS:           Radians (rad), order: joint_1 to joint_6
+TEMPERATURE:      Celsius (°C)
+VOLTAGE:          Volts (V)
+TCP SPEED:        Meters/second (m/s)
+CONVEYOR SPEED:   Percentage or RPM
+
+COORDINATE SYSTEM:
+  - Base: Robot base frame
+  - X: Forward
+  - Y: Left
+  - Z: Up
+
+RPY ORDER:
+  - Roll (φ): X-axis rotation
+  - Pitch (θ): Y-axis rotation
+  - Yaw (ψ): Z-axis rotation
+
+================================================================================
+9. NAMESPACE SUPPORT
+================================================================================
+
+All interfaces support robot namespaces:
+
+Without namespace:
+  /niryo_robot_arm_commander/robot_action
+
+With namespace "robot1":
+  /robot1/niryo_robot_arm_commander/robot_action
+  /robot1/niryo_robot/kinematics/forward
+  /robot1/niryo_robot_status/robot_status
+  /robot1/joint_states
+
+================================================================================
+10. ERROR HANDLING
+================================================================================
+
+Service Response Status Codes:
+  0   - Success / OK
+  -1  - Error
+  1   - Information
+  -2  - Communication error
+  -3  - Hardware error
+  -4  - Software error
+
+Check pattern:
+  response.status == 0  for success
+  response.message for details
+
+Action Result Status:
+  Check result.status and result.message on completion
+
+================================================================================
+11. PYTHON CLIENT IMPORTS
+================================================================================
+
+from rclpy.node import Node
+from rclpy.action import ActionClient
+from rclpy.client import Client
+
+from niryo_ned_ros2_interfaces.action import RobotMove, Tool, ExecuteProgram
+from niryo_ned_ros2_interfaces.msg import (
+    RobotState, RobotStatus, ArmMoveCommand, ToolCommand, RPY
+)
+from niryo_ned_ros2_interfaces.srv import (
+    GetFK, GetIK, SetTCP, SetDigitalIO, GetDigitalIO,
+    ManagePose, GetPose, ObjDetection, TakePicture,
+    ManageWorkspace, ManageTrajectory, SetConveyor,
+    ControlConveyor, Ping, GetCpuTemperature
+)
+
+from geometry_msgs.msg import Point, Quaternion
+from sensor_msgs.msg import JointState
+
+================================================================================
+12. DOCUMENT LOCATION & FILES
+================================================================================
+
+Full Reference Guide:
+  /home/i/niryo_ned2/NED_ROS2_QUICK_REFERENCE.md (789 lines, 28KB)
+
+Movement Commands Guide:
+  /home/i/niryo_ned2/MOVEMENT_COMMANDS_GUIDE.md
+  /home/i/niryo_ned2/MOVEMENT_COMMANDS_INDEX.md
+
+Driver README:
+  /home/i/niryo_ned2/src/ned-ros2-driver/README.md
+
+Interface Definitions (Message/Service/Action):
+  /home/i/niryo_ned2/src/ned-ros2-driver/niryo_ned_ros2_interfaces/
+
+Python Test Examples:
+  /home/i/niryo_ned2/src/ned-ros2-driver/niryo_ned_ros2_driver/tests/
+
+================================================================================
+
+END OF INTERFACE SUMMARY

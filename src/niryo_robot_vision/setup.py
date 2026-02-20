@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'aruco_pose_publisher = niryo_robot_vision.arucopose:main',
         ],
     },
 )
