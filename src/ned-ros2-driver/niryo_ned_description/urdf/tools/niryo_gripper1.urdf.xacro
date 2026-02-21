@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="niryo_ned2">
 
+    <xacro:macro name="gripper_1" params="prefix">
     <!-- Base Gripper -->
-    <link name="base_gripper_1">
+    <link name="${prefix}base_gripper_1">
         <inertial>
             <origin xyz="0.0028582 0.0022204 0.023772"
                     rpy="0 0 0"/>
@@ -35,7 +36,7 @@
 
     <!-- Mors 1 -->
     <link
-            name="mors_1">
+            name="${prefix}mors_1">
         <inertial>
             <origin xyz="-0.0049739 0.0067393 -0.023929"
                     rpy="0 0 0"/>
@@ -70,12 +71,12 @@
     </link>
 
     <joint
-            name="joint_base_to_mors_1"
+            name="${prefix}joint_base_to_mors_1"
             type="prismatic">
         <origin xyz="0.01455 -0.0796 0.0096137"
                 rpy="1.5708 0 0"/>
-        <parent link="base_gripper_1"/>
-        <child link="mors_1"/>
+        <parent link="${prefix}base_gripper_1"/>
+        <child link="${prefix}mors_1"/>
         <axis xyz="0 1 0"/>
         <limit lower="-0.01"
                upper="0.01"
@@ -85,7 +86,7 @@
 
     <!-- Mors 2 -->
     <link
-            name="mors_2">
+            name="${prefix}mors_2">
         <inertial>
             <origin xyz="-0.0049739 -0.0067393 -0.023929"
                     rpy="0 0 0"/>
@@ -116,17 +117,18 @@
         </collision>
     </link>
 
-    <joint name="joint_base_to_mors_2"
+    <joint name="${prefix}joint_base_to_mors_2"
            type="prismatic">
         <origin xyz="0.01455 -0.0796 -0.011066"
                 rpy="1.5708 0 0"/>
-        <parent link="base_gripper_1"/>
-        <child link="mors_2"/>
+        <parent link="${prefix}base_gripper_1"/>
+        <child link="${prefix}mors_2"/>
         <axis xyz="0 -1 0"/>
         <limit lower="-0.01"
                upper="0.01"
                effort="1"
                velocity="5"/>
     </joint>
+    </xacro:macro>
 
 </robot>
