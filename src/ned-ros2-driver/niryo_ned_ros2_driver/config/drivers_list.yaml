@@ -1,5 +1,8 @@
 rosbridge_port: 9090
 robot_namespaces:
-  - ""
+  - "ned1"
+  - "ned2"
 robot_ips:
   - "192.168.8.150"
+  - "192.168.8.148"
+
