@@ -1,0 +1,22 @@
+pick_and_place:
+  pick_pose:
+    position:
+      x: 0.0
+      y: -0.2
+      z: 0.0
+    rpy:
+      roll: 0.0
+      pitch: 0.0
+      yaw: 0.0
+  place_pose:
+    position:
+      x: 0.25
+      y: 0.1
+      z: 0.15
+    rpy:
+      roll: 0.0
+      pitch: 1.57
+      yaw: 0.0
+  approach_height: 0.05
+  gripper_torque: 50
+  tool_id: 11 # Gripper 1
