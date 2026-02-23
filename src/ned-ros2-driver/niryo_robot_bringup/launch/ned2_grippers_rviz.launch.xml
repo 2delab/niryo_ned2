@@ -10,8 +10,10 @@
     </node>
 
     <node pkg="controller_manager" exec="ros2_control_node">
-        <param from ="$(find-pkg-share niryo_ned2_gripper_moveit_config)/config/ros2_controllers.yaml" />
+    <param name="robot_description" value="$(command 'xacro $(var urdf_file)')" />
+    <param from ="$(find-pkg-share niryo_ned2_gripper_moveit_config)/config/ros2_controllers.yaml" />
     </node>
+
 
     <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
     <node pkg="controller_manager" exec="spawner" args="arm_controller" />

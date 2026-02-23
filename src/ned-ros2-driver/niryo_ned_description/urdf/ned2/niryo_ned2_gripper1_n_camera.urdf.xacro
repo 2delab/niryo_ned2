@@ -16,5 +16,7 @@
                 rpy="${-PI/2} ${PI/2} 0"/>
     </joint>
 
+    <!-- Gripper instance -->
+    <xacro:gripper_1 prefix=""/>
 
 </robot>
