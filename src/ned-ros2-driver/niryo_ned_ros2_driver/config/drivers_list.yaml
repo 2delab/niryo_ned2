@@ -2,4 +2,4 @@ rosbridge_port: 9090
 robot_namespaces:
   - ""
 robot_ips:
-  - ""
+  - "192.168.8.150"
