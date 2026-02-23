@@ -1,0 +1,72 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    ned1_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    ned1_gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    ned2_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    ned2_gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+ned1_arm_controller:
+  ros__parameters:
+    joints:
+      - ned1_joint_1
+      - ned1_joint_2
+      - ned1_joint_3
+      - ned1_joint_4
+      - ned1_joint_5
+      - ned1_joint_6
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    allow_nonzero_velocity_at_trajectory_end: true
+ned1_gripper_controller:
+  ros__parameters:
+    joints:
+      - ned1_joint_base_to_mors_1
+      - ned1_joint_base_to_mors_2
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    allow_nonzero_velocity_at_trajectory_end: true
+ned2_arm_controller:
+  ros__parameters:
+    joints:
+      - ned2_joint_1
+      - ned2_joint_2
+      - ned2_joint_3
+      - ned2_joint_4
+      - ned2_joint_5
+      - ned2_joint_6
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    allow_nonzero_velocity_at_trajectory_end: true
+ned2_gripper_controller:
+  ros__parameters:
+    joints:
+      - ned2_joint_base_to_mors_1
+      - ned2_joint_base_to_mors_2
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    allow_nonzero_velocity_at_trajectory_end: true

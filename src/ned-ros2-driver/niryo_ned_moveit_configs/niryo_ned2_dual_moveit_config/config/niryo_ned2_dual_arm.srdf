@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="niryo_ned2_dual_arm">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="ned1_arm">
+        <joint name="ned1_joint_world"/>
+        <joint name="ned1_joint_1"/>
+        <joint name="ned1_joint_2"/>
+        <joint name="ned1_joint_3"/>
+        <joint name="ned1_joint_4"/>
+        <joint name="ned1_joint_5"/>
+        <joint name="ned1_joint_6"/>
+    </group>
+    <group name="ned1_gripper">
+        <joint name="ned1_joint_base_to_mors_1"/>
+        <joint name="ned1_joint_base_to_mors_2"/>
+    </group>
+    <group name="ned2_arm">
+        <joint name="ned2_joint_world"/>
+        <joint name="ned2_joint_1"/>
+        <joint name="ned2_joint_2"/>
+        <joint name="ned2_joint_3"/>
+        <joint name="ned2_joint_4"/>
+        <joint name="ned2_joint_5"/>
+        <joint name="ned2_joint_6"/>
+    </group>
+    <group name="ned2_gripper">
+        <joint name="ned2_joint_base_to_mors_1"/>
+        <joint name="ned2_joint_base_to_mors_2"/>
+    </group>
+    <group name="dual_arm">
+        <group name="ned1_arm"/>
+        <group name="ned2_arm"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="ned1_home" group="ned1_arm">
+        <joint name="ned1_joint_1" value="0.2486"/>
+        <joint name="ned1_joint_2" value="-0.1591"/>
+        <joint name="ned1_joint_3" value="0"/>
+        <joint name="ned1_joint_4" value="0"/>
+        <joint name="ned1_joint_5" value="-1.3043"/>
+        <joint name="ned1_joint_6" value="0"/>
+    </group_state>
+    <group_state name="ned2_home" group="ned2_arm">
+        <joint name="ned2_joint_1" value="0.348"/>
+        <joint name="ned2_joint_2" value="0"/>
+        <joint name="ned2_joint_3" value="0"/>
+        <joint name="ned2_joint_4" value="0"/>
+        <joint name="ned2_joint_5" value="-1.0283"/>
+        <joint name="ned2_joint_6" value="0"/>
+    </group_state>
+    <group_state name="dual_pose" group="dual_arm">
+        <joint name="ned1_joint_1" value="0"/>
+        <joint name="ned1_joint_2" value="0.3807"/>
+        <joint name="ned1_joint_3" value="0.2677"/>
+        <joint name="ned1_joint_4" value="0"/>
+        <joint name="ned1_joint_5" value="0"/>
+        <joint name="ned1_joint_6" value="0"/>
+        <joint name="ned2_joint_1" value="0.012"/>
+        <joint name="ned2_joint_2" value="0.4212"/>
+        <joint name="ned2_joint_3" value="0.2356"/>
+        <joint name="ned2_joint_4" value="0"/>
+        <joint name="ned2_joint_5" value="0"/>
+        <joint name="ned2_joint_6" value="0"/>
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="ned1_gripper" parent_link="ned1_hand_link" group="ned1_gripper" parent_group="ned1_arm"/>
+    <end_effector name="ned2_gripper" parent_link="ned2_hand_link" group="ned2_gripper" parent_group="ned2_arm"/>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="ned1_arm_link" link2="ned1_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned1_camera_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned1_elbow_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned1_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned1_shoulder_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_base_gripper_1" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_camera_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_arm_link" link2="ned2_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned1_camera_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned1_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned1_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned1_hand_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned1_mors_1" reason="Adjacent"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned1_mors_2" reason="Adjacent"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned1_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_gripper_1" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned1_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned1_shoulder_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_base_gripper_1" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_base_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_camera_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_base_link" link2="ned2_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned1_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned1_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned1_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned1_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned1_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned1_wrist_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_camera_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned1_forearm_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned1_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned1_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned1_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned1_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned1_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_elbow_link" link2="ned2_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned1_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned1_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned1_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned1_wrist_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_forearm_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned1_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned1_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned1_wrist_link" reason="Adjacent"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_base_gripper_1" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_camera_link" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_hand_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_1" link2="ned1_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_mors_1" link2="ned1_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_1" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_1" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_1" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_2" link2="ned1_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_2" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_2" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_mors_2" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_mors_2" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_mors_2" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_base_gripper_1" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_camera_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned1_shoulder_link" link2="ned2_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned1_wrist_link" link2="ned2_arm_link" reason="Never"/>
+    <disable_collisions link1="ned1_wrist_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned1_wrist_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned1_wrist_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned2_arm_link" link2="ned2_base_link" reason="Never"/>
+    <disable_collisions link1="ned2_arm_link" link2="ned2_camera_link" reason="Never"/>
+    <disable_collisions link1="ned2_arm_link" link2="ned2_elbow_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_arm_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned2_arm_link" link2="ned2_shoulder_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_base_gripper_1" link2="ned2_camera_link" reason="Never"/>
+    <disable_collisions link1="ned2_base_gripper_1" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned2_base_gripper_1" link2="ned2_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned2_base_gripper_1" link2="ned2_hand_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_base_gripper_1" link2="ned2_mors_1" reason="Adjacent"/>
+    <disable_collisions link1="ned2_base_gripper_1" link2="ned2_mors_2" reason="Adjacent"/>
+    <disable_collisions link1="ned2_base_gripper_1" link2="ned2_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned2_base_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned2_base_link" link2="ned2_shoulder_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_camera_link" link2="ned2_elbow_link" reason="Never"/>
+    <disable_collisions link1="ned2_camera_link" link2="ned2_forearm_link" reason="Never"/>
+    <disable_collisions link1="ned2_camera_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned2_camera_link" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned2_camera_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned2_camera_link" link2="ned2_wrist_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_elbow_link" link2="ned2_forearm_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_elbow_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned2_elbow_link" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned2_elbow_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned2_elbow_link" link2="ned2_shoulder_link" reason="Never"/>
+    <disable_collisions link1="ned2_elbow_link" link2="ned2_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned2_forearm_link" link2="ned2_hand_link" reason="Never"/>
+    <disable_collisions link1="ned2_forearm_link" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned2_forearm_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned2_forearm_link" link2="ned2_wrist_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_hand_link" link2="ned2_mors_1" reason="Never"/>
+    <disable_collisions link1="ned2_hand_link" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned2_hand_link" link2="ned2_wrist_link" reason="Adjacent"/>
+    <disable_collisions link1="ned2_mors_1" link2="ned2_mors_2" reason="Never"/>
+    <disable_collisions link1="ned2_mors_1" link2="ned2_wrist_link" reason="Never"/>
+    <disable_collisions link1="ned2_mors_2" link2="ned2_wrist_link" reason="Never"/>
+</robot>
