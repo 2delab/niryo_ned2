@@ -24,6 +24,9 @@ setup(
     entry_points={
         "console_scripts": [
             "ros2_driver = niryo_ned_ros2_driver.bridge_node:main",
+            "mock_robot_action_server = niryo_ned_ros2_driver.mock_actions:run_robot_action_server",
+            "mock_tools_action_server = niryo_ned_ros2_driver.mock_actions:run_tools_action_server",
+            "mock_action_server = niryo_ned_ros2_driver.mock_action_server:main",
         ],
     },
 )
