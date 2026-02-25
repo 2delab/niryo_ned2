@@ -4,4 +4,5 @@ log/
 venv/
 .vscode/
 .ruff_cache/
-_pycache__/
+__pycache__/
+.DS_Store
