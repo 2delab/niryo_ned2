@@ -163,6 +163,7 @@ class ArucoPosePublisher(Node):
                 return
             
             self.frame_count += 1
+            frame = cv2.flip(frame, -1)  # Flip both horizontally and vertically (180 degrees)
             
             # Create ROS Image message with current timestamp
             ros_image = self.cv_bridge.cv2_to_imgmsg(frame, encoding='bgr8')

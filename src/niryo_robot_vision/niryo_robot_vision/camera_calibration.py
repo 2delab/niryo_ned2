@@ -58,6 +58,7 @@ try:
             continue
             
         no_frame_warning_count = 0
+        frame = cv2.flip(frame, -1)  # Flip both horizontally and vertically (180 degrees)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
         if img_size is None:
