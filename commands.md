@@ -15,8 +15,8 @@ ros2 service call /niryo_robot_tools_commander/set_tcp niryo_ned_ros2_interfaces
 
 enable tcp 
 ```bash
-ros2 service call /niryo_robot_tools_commander/enable_tcp niryo_robot_msgs/srv/SetBool \
-  '{data: true}'
+ros2 service call /niryo_robot_tools_commander/enable_tcp niryo_ned_ros2_interfaces/srv/SetBool \
+  '{value: true}'
 ```
 
 publish tf
